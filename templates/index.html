@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Diagnosis Tool</title>
+</head>
+<body>
+    <h1>Upload Crop Image</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Diagnose</button>
+    </form>
+    {% if prediction is not none %}
+        <p>Prediction: {{ prediction }}</p>
+    {% endif %}
+</body>
+</html>
