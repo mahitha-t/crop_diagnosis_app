@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template
-import tensorflow as tf
+import torch
 import numpy as np
 from PIL import Image
 import os
 
 app = Flask(__name__)
-model = tf.keras.models.load_model("best.pt")
+model = torch.load("best.pt")
+model.eval()
 
 def preprocess_image(image_file):
     image=Image.open(image_file).resize((224,224))
