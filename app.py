@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = tf.keras.models.load_model("model.h5")
+model = tf.keras.models.load_model("best.pt")
 
 def preprocess_image(image_file):
     image=Image.open(image_file).resize((224,224))
