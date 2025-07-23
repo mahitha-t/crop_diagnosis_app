@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = torch.load("best.pt")
+model = torch.load("best.pt", weights_only=False)
 model.eval()
 
 def preprocess_image(image_file):
