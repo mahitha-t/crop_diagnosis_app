@@ -27,7 +27,8 @@ def index():
         if file:
             img = preprocess_image(file)
             with torch.no_grad():
-                pred = model(img)
+                if isinstance(pred, tuple):
+                    pred = pred[0]  
                 prediction = torch.argmax(pred, dim=1).item()
     
     return render_template('index.html', prediction= prediction)
