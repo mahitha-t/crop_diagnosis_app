@@ -5,13 +5,16 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = torch.load("best.pt", weights_only=False)
+model = torch.load("model.pt", map_location=torch.device("cpu"))
+model = model['model']
 model.eval()
 
 def preprocess_image(image_file):
-    image=Image.open(image_file).resize((224,224))
-    image=np.Array(image)/255.0
-    return np.expand_dims(image,axis=0)
+    image = Image.open(image_file).convert("RGB").resize((224, 224))
+    transform = transforms.Compose([
+        transforms.ToTensor(),  # Converts to [C, H, W] and scales to [0, 1]
+    ])
+    return transform(image).unsqueeze(0)  
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -20,8 +23,9 @@ def index():
         file = request.files['file']
         if file:
             img = preprocess_image(file)
-            pred = model.predict (img)
-            prediction = np.argmax(pred)
+            with torch.no_grad():
+                pred = model(img)
+                prediction = torch.argmax(pred, dim=1).item()
     
     return render_template('index.html', prediction= prediction)
 
