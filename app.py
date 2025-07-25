@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = torch.load("best.pt", map_location=torch.device("cpu"))
+model = torch.load("best.pt", map_location=torch.device("cpu"), , weights_only=False)
 model = model['model']
 model.eval()
 
@@ -31,4 +31,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000)) 
+    app.run(host="0.0.0.0", port=port)
