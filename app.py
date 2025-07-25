@@ -10,6 +10,7 @@ app = Flask(__name__)
 model = torch.load("best.pt", map_location=torch.device("cpu"), weights_only=False)
 model = model['model']
 model.eval()
+model.float()
 
 def preprocess_image(image_file):
     image = Image.open(image_file).convert("RGB").resize((224, 224))
