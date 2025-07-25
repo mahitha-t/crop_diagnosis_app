@@ -6,9 +6,11 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN apt-get update
-RUN apt-get install -y libjpeg-dev zlib1g-dev
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
