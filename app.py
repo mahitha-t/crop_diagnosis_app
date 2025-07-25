@@ -3,6 +3,8 @@ import torch
 import numpy as np
 from PIL import Image
 import os
+from torchvision import transforms
+
 
 app = Flask(__name__)
 model = torch.load("best.pt", map_location=torch.device("cpu"), weights_only=False)
