@@ -4,10 +4,12 @@ import numpy as np
 from PIL import Image
 import os
 from torchvision import transforms
+from ultralytics import YOLO
+
 
 
 app = Flask(__name__)
-model = torch.load("best.pt", map_location=torch.device("cpu"), weights_only=False)
+model = YOLO("best.pt", map_location=torch.device("cpu"), weights_only=False)
 model = model['model']
 model.eval()
 model.float()
@@ -22,17 +24,14 @@ def preprocess_image(image_file):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     prediction = None
-    if request.method == 'POST':
-        file = request.files['file']
-        if file:
-            img = preprocess_image(file)
-            with torch.no_grad():
-                pred = model(img)
-                if isinstance(pred, tuple):
-                    pred = pred[0]  
-                prediction = torch.argmax(pred, dim=1).item()
-    
-    return render_template('index.html', prediction= prediction)
+    if request.method == 'POST' and 'file' in request.files:
+        img = request.files['file']
+        results = model.predict(source=img, imgsz=640)  # or a size you trained with
+        # results is an ultralytics Results object list
+        r = results[0]
+        prediction = [{'label': cls, 'confidence': float(conf), 'box': box.tolist()}
+                      for cls, conf, box in zip(r.names.values(), r.conf, r.boxes.xyxy)]
+    return render_template('index.html', prediction=prediction)
 
 
 if __name__ == '__main__':
