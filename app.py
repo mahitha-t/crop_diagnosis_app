@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 app = Flask(__name__)
-model = torch.load("model.pt", map_location=torch.device("cpu"))
+model = torch.load("best.pt", map_location=torch.device("cpu"))
 model = model['model']
 model.eval()
 
