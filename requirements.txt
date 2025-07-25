@@ -2,5 +2,5 @@ torch
 flask
 numpy
 ultralytics
-pillow
+Pillow
 torchvision
