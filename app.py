@@ -28,7 +28,7 @@ def index():
             except Exception as e:
                 prediction = [{'label': 'Error', 'confidence': 0.0, 'box': str(e)}]
     label = prediction[0]['label'] if prediction else "Pest not detected."
-    return render_template('index.html', prediction=f'This is a {label}.')
+    return render_template('index.html', prediction=label)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
