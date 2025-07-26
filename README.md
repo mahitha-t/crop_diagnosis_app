@@ -1,4 +1,4 @@
-Crop Pest Detection with YOLOv8
+Crop Pest Detection with YOLOv11: https://crop-diagnosis-app.onrender.com/
 
 This project is an AI-powered web application that detects over 100 crop pests from images using a lightweight YOLOv11 model. 
 It allows users- targeted to  farmers and agricultural experts— to upload a plant image and get instant predictions on potential pest infestations.
