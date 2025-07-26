@@ -16,3 +16,4 @@ Acknowledgements:
 - Hosting: Render
 - Inspiration: Helping small farmers integrate lightweight technology
 
+<img width="1416" height="673" alt="Screenshot 2025-07-26 at 12 43 54 PM" src="https://github.com/user-attachments/assets/803082cf-de81-4224-83a3-7caea671275c" />
